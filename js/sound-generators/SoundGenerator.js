@@ -86,7 +86,7 @@ define( function( require ) {
     // @protected {GainNode) - master gain control that will be used to control the volume of the sound
     this.masterGainNode = this.audioContext.createGain();
     this.masterGainNode.gain.setTargetAtTime(
-      this._outputLevel,
+      phet.chipper.queryParameters.audioVolume * this._outputLevel,
       this.audioContext.currentTime,
       DEFAULT_TIME_CONSTANT
     );
@@ -100,10 +100,10 @@ define( function( require ) {
     this.fullyEnabledProperty.link( function( fullyEnabled ) {
       var now = self.audioContext.currentTime;
       if ( fullyEnabled ) {
-        self.masterGainNode.gain.setTargetAtTime( self._outputLevel, now, DEFAULT_TIME_CONSTANT );
+        self.masterGainNode.gain.setTargetAtTime( phet.chipper.queryParameters.audioVolume * self._outputLevel, now, DEFAULT_TIME_CONSTANT );
       }
       else {
-        self.masterGainNode.gain.setTargetAtTime( 0, now, DEFAULT_TIME_CONSTANT );
+        self.masterGainNode.gain.setTargetAtTime( phet.chipper.queryParameters.audioVolume * 0, now, DEFAULT_TIME_CONSTANT );
       }
     } );
 
@@ -135,7 +135,7 @@ define( function( require ) {
       this._outputLevel = outputLevel;
       if ( this._enabled ) {
         this.masterGainNode.gain.setTargetAtTime(
-          outputLevel,
+          phet.chipper.queryParameters.audioVolume * outputLevel,
           this.audioContext.currentTime,
           timeConstant || DEFAULT_TIME_CONSTANT
         );

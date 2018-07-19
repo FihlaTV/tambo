@@ -144,7 +144,7 @@ define( function( require ) {
         [ this.enabledProperty, simVisibleProperty ],
         function( enabled, simVisible ) {
           var gain = enabled && simVisible ? masterOutputLevel : 0;
-          self.masterGainNode.gain.setTargetAtTime( gain, phetAudioContext.currentTime, TC_FOR_PARAM_CHANGES );
+          self.masterGainNode.gain.setTargetAtTime( phet.chipper.queryParameters.audioVolume * gain, phetAudioContext.currentTime, TC_FOR_PARAM_CHANGES );
         }
       );
 
@@ -331,7 +331,7 @@ define( function( require ) {
 
       masterOutputLevel = outputLevel;
       if ( enabledProperty.get() ) {
-        this.masterGainNode.gain.setTargetAtTime( outputLevel, phetAudioContext.currentTime, TC_FOR_PARAM_CHANGES );
+        this.masterGainNode.gain.setTargetAtTime( phet.chipper.queryParameters.audioVolume * outputLevel, phetAudioContext.currentTime, TC_FOR_PARAM_CHANGES );
       }
     },
 
